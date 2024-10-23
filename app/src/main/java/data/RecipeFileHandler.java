@@ -48,12 +48,20 @@ public class RecipeFileHandler {
      * @param recipeName レシピ名
      * @param ingredients 材料名
      */
-     // 
+     //
     public void addRecipe(String recipeName, String ingredients) {
-        // try {
-
-        // } catch (IOException e) {
-
-        // }
+        //ファイルの書き込み
+        String writeString = "";
+        //上書きとなるよう「true」を記載
+        try  (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            //引数を代入（入力値）
+            writeString = recipeName +", " + ingredients;
+            writer.write(writeString);
+            writer.newLine();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+

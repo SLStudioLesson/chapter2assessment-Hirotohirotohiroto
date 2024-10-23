@@ -41,6 +41,7 @@ public class RecipeUI {
                         displayRecipes();
                         break;
                     case "2":
+                        addNewRecipe();
                         // 設問2: 新規登録機能
                         break;
                     case "3":
@@ -65,12 +66,26 @@ public class RecipeUI {
      */
     //レシピデータを表示するためのメソッド
     private void displayRecipes() {
-        RecipeFileHandler rh = new RecipeFileHandler();
-        for(String l : rh.readRecipes()){
         System.out.println("Recipes:");
         System.out.println("-----------------------------------");
-        System.out.println(rh.readRecipes());
+        
+        ArrayList<String> lesipi = fileHandler.readRecipes();
+        for(String rh : lesipi){
+            //System.out.print(rh.toString());
+            System.out.print("Recipe Name: ");
+            String[] a = rh.split(",");
+            System.out.println(a[0]);
+            System.out.print("Main Ingredients: ");
+            for(int i = 1; i < a.length; i++){
+                System.out.print(a[i]);
+                if(i < a.length - 1){
+                    System.out.print(", ");
+                }
+            }
+            System.out.println("");
+            System.out.println("-----------------------------------");
         }
+        
         
     }
 
@@ -81,7 +96,15 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        //入力受付
+        System.out.print("Enter recipe name: ");
+        String a1 = reader.readLine();
+        System.out.print("Enter main ingredients (comma separated): ");
+        String a2 = reader.readLine();
+        //入力値をそれぞれ引数として渡す
+        fileHandler.addRecipe(a1, a2);
 
+        System.out.println("Recipe added successfully.");
     }
 
     /**
