@@ -11,16 +11,17 @@ public class RecipeUI {
     private BufferedReader reader;
     private RecipeFileHandler fileHandler;
 
+    //コンストラクタ
     public RecipeUI() {
         reader = new BufferedReader(new InputStreamReader(System.in));
         fileHandler = new RecipeFileHandler();
     }
-
+    //コンストラクタ（引数あり）
     public RecipeUI(BufferedReader reader, RecipeFileHandler fileHandler) {
         this.reader = reader;
         this.fileHandler = fileHandler;
     }
-
+    //入力受付
     public void displayMenu() {
         while (true) {
             try {
@@ -31,12 +32,13 @@ public class RecipeUI {
                 System.out.println("3: Search Recipe");
                 System.out.println("4: Exit Application");
                 System.out.print("Please choose an option: ");
-
+                //受け付けた値
                 String choice = reader.readLine();
-
+                //受け付けた値によって条件分岐
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        displayRecipes();
                         break;
                     case "2":
                         // 設問2: 新規登録機能
@@ -61,8 +63,15 @@ public class RecipeUI {
      * 設問1: 一覧表示機能
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
+    //レシピデータを表示するためのメソッド
     private void displayRecipes() {
-
+        RecipeFileHandler rh = new RecipeFileHandler();
+        for(String l : rh.readRecipes()){
+        System.out.println("Recipes:");
+        System.out.println("-----------------------------------");
+        System.out.println(rh.readRecipes());
+        }
+        
     }
 
     /**
